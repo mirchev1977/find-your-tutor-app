@@ -2,7 +2,7 @@
   <header>
     <nav>
       <h1>
-        <router-link to="/">Find a Tutor</router-link>
+        <router-link to="/">Find Your Tutor</router-link>
       </h1>
       <ul>
         <li>
