@@ -40,6 +40,43 @@ export default {
       throw error;
     }
 
+    if (mode === 'signup') {
+      const resp = await fetch(
+        `https://find-your-tutor-app-default-rtdb.europe-west1.firebasedatabase.app/users/${responseData.localId}.json?auth=` + responseData.idToken,
+        {
+          method: 'PUT',
+          body: JSON.stringify({ name: 'Petko', surname: "Petkov", job: 'Minister' })
+        }
+      );
+
+      const respData = await resp.json();
+
+      if (!resp.ok) {
+        const error = new Error(
+          respData.message || 'Failed to authenticate. Check your login data.'
+        );
+        throw error;
+      }
+    } else {
+      const resp = await fetch(
+        `https://find-your-tutor-app-default-rtdb.europe-west1.firebasedatabase.app/users/${responseData.localId}.json?auth=` + responseData.idToken,
+        {
+          method: 'GET',
+        }
+      );
+
+      const respData = await resp.json();
+
+      console.log('userFetched', respData);
+
+      if (!resp.ok) {
+        const error = new Error(
+          respData.message || 'Failed to authenticate1. Check your login data.'
+        );
+        throw error;
+      }
+    }
+
     const expiresIn = +responseData.expiresIn * 1000;
     // const expiresIn = 5000;
     const expirationDate = new Date().getTime() + expiresIn;
