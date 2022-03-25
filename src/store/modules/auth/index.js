@@ -7,6 +7,8 @@ export default {
     return {
       userId: null,
       token: null,
+      firstName: '',
+      lastName: '',
       tokenExpiration: null,
       didAutoLogout: false
     };

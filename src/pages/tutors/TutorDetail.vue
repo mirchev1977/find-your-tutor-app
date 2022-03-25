@@ -4,6 +4,7 @@
       <base-card>
         <h2>{{ fullName }}</h2>
         <h3>${{ rate }}/hour</h3>
+        <h1><img :src="pic" style="width: 200px;"/></h1>
       </base-card>
     </section>
     <section>
@@ -36,6 +37,9 @@ export default {
     fullName() {
       return this.selectedTutor.firstName + ' ' + this.selectedTutor.lastName;
     },
+    pic() {
+      return this.selectedTutor.pic;
+    },
     areas() {
       return this.selectedTutor.areas;
     },
@@ -53,6 +57,7 @@ export default {
     this.selectedTutor = this.$store.getters['tutors/tutors'].find(
       (tutor) => tutor.id === this.id
     );
+    console.log(this.selectedTutor);
   },
 };
 </script>

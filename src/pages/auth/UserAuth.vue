@@ -17,8 +17,31 @@
           <input type="password" id="password" v-model.trim="password" />
         </div>
         <p
-          v-if="!formIsValid"
+          v-if="!formIsValid" style="color: red;"
         >Please enter a valid email and password (must be at least 6 characters long).</p>
+        <div v-if="mode !== 'login'">
+          <div class="form-control">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" v-model.trim="firstName" />
+          </div>
+          <p
+            v-if="!validFirstName" style="color: red;"
+          >Please enter First Name!</p>
+          <div class="form-control">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" v-model.trim="lastName" />
+            <p
+              v-if="!validLastName" style="color: red;"
+            >Please enter Last Name!</p>
+          </div>
+          <div class="form-control">
+            <label for="pic">Picture</label>
+            <input type="text" id="pic" v-model.trim="pic" />
+            <p
+              v-if="!validPic" style="color: red;"
+            >Please provide an image of you!</p>
+          </div>
+        </div>
         <base-button>{{ submitButtonCaption }}</base-button>
         <base-button type="button" mode="flat" @click="switchAuthMode">{{ switchModeButtonCaption }}</base-button>
       </form>
@@ -30,6 +53,12 @@
 export default {
   data() {
     return {
+      firstName: '',
+      validFirstName: true,
+      lastName: '',
+      validLastName: true,
+      pic: '',
+      validPic: true,
       email: '',
       password: '',
       formIsValid: true,
@@ -57,6 +86,8 @@ export default {
   methods: {
     async submitForm() {
       this.formIsValid = true;
+      this.validLogin = true;
+
       if (
         this.email === '' ||
         !this.email.includes('@') ||
@@ -66,11 +97,32 @@ export default {
         return;
       }
 
+      this.validFirstName = true;
+      if (this.mode == 'signup' && this.firstName === '') {
+        this.validFirstName = false;
+        return;
+      }
+
+      this.validLastName = true;
+      if (this.mode == 'signup' && this.lastName === '') {
+        this.validLastName = false;
+        return;
+      }
+
+      this.validPic = true;
+      if (this.mode == 'signup' && this.pic === '') {
+        this.validPic = false;
+        return;
+      }
+
       this.isLoading = true;
 
       const actionPayload = {
         email: this.email,
         password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        pic: this.pic
       };
 
       try {

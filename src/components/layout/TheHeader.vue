@@ -18,6 +18,7 @@
           <base-button @click="logout">Logout</base-button>
         </li>
       </ul>
+      <p v-if="isLoggedIn" class="names">Hello, {{ firstName }} {{ lastName }}</p>
     </nav>
   </header>
 </template>
@@ -27,6 +28,12 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
+    },
+    firstName() {
+      return this.$store.getters.firstName;
+    },
+    lastName() {
+      return this.$store.getters.lastName;
     }
   },
   methods: {
@@ -39,6 +46,13 @@ export default {
 </script>
 
 <style scoped>
+.names {
+  position: absolute;
+  right: 20px;
+  top: -14px;
+  padding-right: 20px;
+  color: #fff;
+}
 header {
   width: 100%;
   height: 5rem;

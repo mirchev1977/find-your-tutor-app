@@ -3,9 +3,10 @@
     <div class="form-control" :class="{invalid: !firstName.isValid}">
       <label for="firstname">Firstname</label>
       <input
+        readonly
         type="text"
         id="firstname"
-        v-model.trim="firstName.val"
+        v-model.trim="fName"
         @blur="clearValidity('firstName')"
       />
       <p v-if="!firstName.isValid">Firstname must not be empty.</p>
@@ -13,9 +14,10 @@
     <div class="form-control" :class="{invalid: !lastName.isValid}">
       <label for="lastname">Lastname</label>
       <input
+        readonly
         type="text"
         id="lastname"
-        v-model.trim="lastName.val"
+        v-model.trim="lName"
         @blur="clearValidity('lastName')"
       />
       <p v-if="!lastName.isValid">Lastname must not be empty.</p>
@@ -102,11 +104,24 @@ export default {
       formIsValid: true,
     };
   },
+  computed: {
+    fName() {
+      return this.$store.getters.firstName;
+    },
+    lName() {
+      return this.$store.getters.lastName;
+    },
+    pic() {
+      return this.$store.getters.pic;
+    },
+  },
   methods: {
     clearValidity(input) {
       this[input].isValid = true;
     },
     validateForm() {
+      this.firstName.val = this.fName;
+      this.lastName.val = this.lName;
       this.formIsValid = true;
       if (this.firstName.val === '') {
         this.firstName.isValid = false;
@@ -142,6 +157,7 @@ export default {
         desc: this.description.val,
         rate: this.rate.val,
         areas: this.areas.val,
+        pic: this.pic
       };
 
       this.$emit('save-data', formData);

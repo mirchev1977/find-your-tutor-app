@@ -6,7 +6,8 @@ export default {
       lastName: data.last,
       description: data.desc,
       hourlyRate: data.rate,
-      areas: data.areas
+      areas: data.areas,
+      pic: data.pic
     };
 
     const token = context.rootGetters.token;
@@ -55,7 +56,8 @@ export default {
         lastName: responseData[key].lastName,
         description: responseData[key].description,
         hourlyRate: responseData[key].hourlyRate,
-        areas: responseData[key].areas
+        areas: responseData[key].areas,
+        pic: responseData[key].pic,
       };
       tutors.push(tutor);
     }

@@ -40,16 +40,18 @@ export default {
       throw error;
     }
 
+    let rData = '';
     if (mode === 'signup') {
       const resp = await fetch(
         `https://find-your-tutor-app-default-rtdb.europe-west1.firebasedatabase.app/users/${responseData.localId}.json?auth=` + responseData.idToken,
         {
           method: 'PUT',
-          body: JSON.stringify({ name: 'Petko', surname: "Petkov", job: 'Minister' })
+          body: JSON.stringify({ firstName: payload.firstName, lastName: payload.lastName, pic: payload.pic})
         }
       );
 
       const respData = await resp.json();
+      rData = await respData;
 
       if (!resp.ok) {
         const error = new Error(
@@ -66,8 +68,7 @@ export default {
       );
 
       const respData = await resp.json();
-
-      console.log('userFetched', respData);
+      rData = await respData;
 
       if (!resp.ok) {
         const error = new Error(
@@ -84,6 +85,9 @@ export default {
     localStorage.setItem('token', responseData.idToken);
     localStorage.setItem('userId', responseData.localId);
     localStorage.setItem('tokenExpiration', expirationDate);
+    localStorage.setItem('firstName', rData.firstName);
+    localStorage.setItem('lastName', rData.lastName);
+    localStorage.setItem('pic', rData.pic);
 
     timer = setTimeout(function() {
       context.dispatch('autoLogout');
@@ -91,13 +95,19 @@ export default {
 
     context.commit('setUser', {
       token: responseData.idToken,
-      userId: responseData.localId
+      userId: responseData.localId,
+      firstName: rData.firstName,
+      lastName: rData.lastName,
+      pic: rData.pic,
     });
   },
   tryLogin(context) {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     const tokenExpiration = localStorage.getItem('tokenExpiration');
+    const firstName = localStorage.getItem('firstName');
+    const lastName = localStorage.getItem('lastName');
+    const pic = localStorage.getItem('pic');
 
     const expiresIn = +tokenExpiration - new Date().getTime();
 
@@ -112,7 +122,10 @@ export default {
     if (token && userId) {
       context.commit('setUser', {
         token: token,
-        userId: userId
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
+        pic: pic
       });
     }
   },
@@ -120,6 +133,9 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('pic');
 
     clearTimeout(timer);
 
