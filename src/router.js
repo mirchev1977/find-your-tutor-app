@@ -23,6 +23,7 @@ const router = createRouter({
           ]
         },
         { path: '/register', component: TutorRegistation, meta: { requiresAuth: true } },
+        { path: '/register/edit', component: TutorRegistation, props: true, meta: { requiresAuth: true } },
         { path: '/inquiries', component: InquiriesReceived, meta: { requiresAuth: true } },
         { path: '/auth', component: UserAuth, meta: { requiresUnauth: true } },
         { path: '/:notFound(.*)', component: NotFound }

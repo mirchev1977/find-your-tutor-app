@@ -41,6 +41,7 @@
       <h3>Areas of Expertise</h3>
       <div>
         <input
+          ref="frontend"
           type="checkbox"
           id="frontend"
           value="frontend"
@@ -51,6 +52,7 @@
       </div>
       <div>
         <input
+          ref="backend"
           type="checkbox"
           id="backend"
           value="backend"
@@ -61,6 +63,7 @@
       </div>
       <div>
         <input
+          ref="career"
           type="checkbox"
           id="career"
           value="career"
@@ -81,6 +84,7 @@ export default {
   emits: ['save-data'],
   data() {
     return {
+      isBeingEdited: false,
       firstName: {
         val: '',
         isValid: true,
@@ -104,6 +108,24 @@ export default {
       formIsValid: true,
     };
   },
+  mounted() {
+    if (this.$route.path == '/register/edit') {
+      this.isBeingEdited = true;
+      this.selectedTutor = this.$store.getters['tutors/tutors'].find(
+        (tutor) => tutor.id === this.userId
+      );
+      this.description.val = this.selectedTutor.description;
+      this.rate.val = this.selectedTutor.hourlyRate;
+    }
+  },
+  updated() {
+    if (this.isBeingEdited) {
+      for ( let i in this.selectedTutor.areas) {
+        let area = this.selectedTutor['areas'][i];
+        this.$refs[area].checked = true;
+      }
+    }
+  },
   computed: {
     fName() {
       return this.$store.getters.firstName;
@@ -114,6 +136,9 @@ export default {
     pic() {
       return this.$store.getters.pic;
     },
+    userId() {
+      return this.$store.getters.userId;
+    },
   },
   methods: {
     clearValidity(input) {
@@ -122,6 +147,7 @@ export default {
     validateForm() {
       this.firstName.val = this.fName;
       this.lastName.val = this.lName;
+
       this.formIsValid = true;
       if (this.firstName.val === '') {
         this.firstName.isValid = false;
@@ -147,6 +173,17 @@ export default {
     submitForm() {
       this.validateForm();
 
+      this.areas.val = [];
+      if (this.$refs['frontend'].checked) {
+        this.areas.val.push('frontend');
+      }
+      if (this.$refs['backend'].checked) {
+        this.areas.val.push('backend');
+      }
+      if (this.$refs['career'].checked) {
+        this.areas.val.push('career');
+      }
+
       if (!this.formIsValid) {
         return;
       }
@@ -159,6 +196,10 @@ export default {
         areas: this.areas.val,
         pic: this.pic
       };
+
+      if (this.isBeingEdited) {
+        formData['isBeingEidted'] = true;
+      }
 
       this.$emit('save-data', formData);
     },

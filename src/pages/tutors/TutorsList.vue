@@ -12,6 +12,7 @@
           <base-button mode="outline" @click="loadTutors(true)">Refresh</base-button>
           <base-button link to="/auth?redirect=register" v-if="!isLoggedIn">Login to Register as Tutor</base-button>
           <base-button v-if="isLoggedIn && !isTutor && !isLoading" link to="/register">Register as Tutor</base-button>
+          <base-button v-if="isLoggedIn && isTutor && !isLoading" link to="/register/edit">Edit your Tutor Registration</base-button>
         </div>
         <div v-if="isLoading">
           <base-spinner></base-spinner>

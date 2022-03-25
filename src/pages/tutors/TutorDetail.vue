@@ -57,7 +57,6 @@ export default {
     this.selectedTutor = this.$store.getters['tutors/tutors'].find(
       (tutor) => tutor.id === this.id
     );
-    console.log(this.selectedTutor);
   },
 };
 </script>

@@ -7,7 +7,8 @@ export default {
       description: data.desc,
       hourlyRate: data.rate,
       areas: data.areas,
-      pic: data.pic
+      pic: data.pic,
+      isBeingEdited: data.isBeingEdited
     };
 
     const token = context.rootGetters.token;
@@ -27,10 +28,17 @@ export default {
       // error ...
     }
 
-    context.commit('registerTutor', {
-      ...tutorData,
-      id: userId
-    });
+    if (tutorData && tutorData.isBeingEdited){
+      context.commit('updateTutor', {
+        ...tutorData,
+        id: userId
+      });
+    } else {
+      context.commit('registerTutor', {
+        ...tutorData,
+        id: userId
+      });
+    }
   },
   async loadTutors(context, payload) {
     if (!payload.forceRefresh && !context.getters.shouldUpdate) {
