@@ -30,10 +30,24 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 /tutors
 ```
+```
 /tutors/:id
+```
+```
 /tutors/:id/contact
+```
+```
 /register
+```
+```
 /register/edit
+```
+```
 /inquiries
+```
+```
 /auth
+```
+```
 /* - not found
+```
