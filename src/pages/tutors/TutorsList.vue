@@ -4,7 +4,7 @@
       <p>{{ error }}</p>
     </base-dialog>
     <section>
-      <tutor-filter @change-filter="setFilters"></tutor-filter>
+      <tutor-filter @change-filter="setFilters" @change-text-filter="setTextFilter"></tutor-filter>
     </section>
     <section>
       <base-card>
@@ -45,6 +45,7 @@ export default {
   },
   data() {
     return {
+      textFiltered: [],
       isLoading: false,
       error: null,
       activeFilters: {
@@ -63,7 +64,7 @@ export default {
     },
     filteredTutors() {
       const tutors = this.$store.getters['tutors/tutors'];
-      return tutors.filter((tutor) => {
+      let filteredTutors = tutors.filter((tutor) => {
         if (this.activeFilters.frontend && tutor.areas.includes('frontend')) {
           return true;
         }
@@ -75,6 +76,12 @@ export default {
         }
         return false;
       });
+
+      if (this.textFiltered.length > 0) {
+        filteredTutors = this.textFiltered;
+      }
+
+      return filteredTutors;
     },
     hasTutors() {
       return !this.isLoading && this.$store.getters['tutors/hasTutors'];
@@ -84,6 +91,22 @@ export default {
     this.loadTutors();
   },
   methods: {
+    setTextFilter(textFilter) {
+      if (textFilter === '') {
+        this.textFiltered = [];
+        return;
+      }
+      const checkBoxFiltered = this.filteredTutors;
+      this.textFiltered = checkBoxFiltered.filter(tutor => {
+        if (tutor.firstName.match(new RegExp(textFilter, "i"))) {
+          return true;
+        }
+        if (tutor.lastName.match(new RegExp(textFilter, "i"))) {
+          return true;
+        }
+        return false;
+      });
+    },
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
