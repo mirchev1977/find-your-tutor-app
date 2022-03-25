@@ -4,7 +4,7 @@
       <base-card>
         <div class="grid">
           <h2 class="name">{{ fullName }}</h2>
-          <h3 class="rate">${{ rate }}/hour</h3>
+          <h3 class="rate">My rate is: ${{ rate }}/hour</h3>
           <img class="pic" :src="pic"/>
         </div>
       </base-card>
@@ -82,7 +82,7 @@ export default {
 }
 
 .rate {
-  grid-row: 3;
-  grid-column: 7/8;
+  grid-row: 3/5;
+  grid-column: 7/9;
 }
 </style>
