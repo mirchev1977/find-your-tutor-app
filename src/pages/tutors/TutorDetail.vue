@@ -2,9 +2,11 @@
   <div>
     <section>
       <base-card>
-        <h2>{{ fullName }}</h2>
-        <h3>${{ rate }}/hour</h3>
-        <h1><img :src="pic" style="width: 200px;"/></h1>
+        <div class="grid">
+          <h2 class="name">{{ fullName }}</h2>
+          <h3 class="rate">${{ rate }}/hour</h3>
+          <img class="pic" :src="pic"/>
+        </div>
       </base-card>
     </section>
     <section>
@@ -60,3 +62,27 @@ export default {
   },
 };
 </script>
+<style scoped>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.pic {
+    grid-column: 11;
+    width: 300px;
+    grid-row: 1/5;
+    border: 14px solid #5c3996;
+    border-radius: 30%;
+}
+
+.name {
+  grid-row: 2;
+  grid-column: 2/5;
+}
+
+.rate {
+  grid-row: 3;
+  grid-column: 7/8;
+}
+</style>
