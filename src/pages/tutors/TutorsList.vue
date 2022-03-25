@@ -109,10 +109,15 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .controls {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  justify-content: center;
+  column-gap: 20%;
 }
 </style>

@@ -45,6 +45,7 @@ html {
 
 body {
   margin: 0;
+  background: url("https://cbscreening.co.uk/wp-content/uploads/2016/07/tutor-606091_1920.jpg") no-repeat center center fixed;
 }
 
 .route-enter-from {
