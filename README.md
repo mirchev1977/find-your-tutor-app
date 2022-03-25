@@ -22,3 +22,14 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Routes
+/
+/tutors
+/tutors/:id
+/tutors/:id/contact
+/register
+/register/edit
+/inquiries
+/auth
+/* - not found
