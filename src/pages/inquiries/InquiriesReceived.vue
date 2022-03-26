@@ -15,6 +15,7 @@
             :key="req.id"
             :email="req.userEmail"
             :message="req.message"
+            :fromUserId="req.fromUserId"
           ></inquiry-item>
         </ul>
         <h3 v-else>You haven't received any inquiries yet!</h3>

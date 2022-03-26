@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form @submit.prevent="submitForm" :class="{answer: isAnswer}">
     <div class="form-control">
       <label for="email">Your E-Mail</label>
       <input type="email" id="email" v-model.trim="email" />
@@ -27,7 +27,10 @@ export default {
   computed: {
     userId() {
       return this.$store.getters.userId;
-    }
+    },
+    isAnswer() {
+      return this.$route.query.answer === 'true'  ? true : false;
+    },
   },
   methods: {
     submitForm() {
@@ -59,6 +62,14 @@ form {
   border: 1px solid #ccc;
   border-radius: 12px;
   padding: 1rem;
+}
+
+.answer {
+  margin-top: 4rem !important;
+  width: 60%;
+  margin: auto;
+  color: #fff;
+  font-size: 1.3rem;
 }
 
 .form-control {

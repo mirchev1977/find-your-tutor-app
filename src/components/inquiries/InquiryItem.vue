@@ -1,7 +1,12 @@
 <template>
   <li>
-    <div>
+    <div v-if="!fromUser">
       <a :href="emailLink">{{ email }}</a>
+    </div>
+    <div v-if="fromUser">
+      <!-- <base-button mode="outline" link :to="tutorContactLink">Contact</base-button> -->
+      <!-- <a mode="outline" :href="tutorContactLink">{{ email }}</a> -->
+      <router-link :to="tutorContactLink">{{ email }}</router-link>
     </div>
     <p>{{ message }}</p>
   </li>
@@ -9,11 +14,17 @@
 
 <script>
 export default {
-  props: ['email', 'message'],
+  props: ['email', 'message', 'fromUserId'],
   computed: {
     emailLink() {
       return 'mailto:' + this.email;
-    }
+    },
+    fromUser() {
+      return this.fromUserId;
+    },
+    tutorContactLink() {
+      return  '/tutors/' + this.fromUser + '/cont?answer=true'; // /tutors/t1/cont
+    },
   }
 }
 </script>

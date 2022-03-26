@@ -20,10 +20,10 @@ export default {
       return this.firstName + ' ' + this.lastName;
     },
     tutorContactLink() {
-      return this.$route.path + '/' + this.id + '/contact'; // /tutors/c1/contact
+      return this.$route.path + '/' + this.id + '/contact'; // /tutors/t1/contact
     },
     tutorDetailsLink() {
-      return this.$route.path + '/' + this.id; // /tutors/c1
+      return this.$route.path + '/' + this.id; // /tutors/t1
     },
   },
 };

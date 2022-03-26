@@ -50,7 +50,8 @@ export default {
         id: key,
         tutorId: tutorId,
         userEmail: responseData[key].userEmail,
-        message: responseData[key].message
+        message: responseData[key].message,
+        fromUserId: responseData[key].fromUserId
       };
       inquiries.push(inquiry);
     }

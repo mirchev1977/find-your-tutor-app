@@ -22,6 +22,7 @@ const router = createRouter({
             { path: 'contact', component: ContactTutor } // /tutors/t1/contact
           ]
         },
+        { path: '/tutors/:id/cont', component: ContactTutor }, // /tutors/t1/cont
         { path: '/register', component: TutorRegistation, meta: { requiresAuth: true } },
         { path: '/register/edit', component: TutorRegistation, props: true, meta: { requiresAuth: true } },
         { path: '/inquiries', component: InquiriesReceived, meta: { requiresAuth: true } },

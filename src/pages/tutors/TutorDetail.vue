@@ -52,7 +52,7 @@ export default {
       return this.selectedTutor.description;
     },
     contactLink() {
-      return this.$route.path + '/' + this.id + '/contact';
+      return  '/tutors/' + this.fromUser + '/cont?answer=true'; // /tutors/t1/cont
     },
   },
   created() {
