@@ -36,11 +36,22 @@ export default {
       return this.$store.getters.lastName;
     },
     inquiriesNumber() {
-      const inquiries = this.$store.getters['inquiries/inquiries'];
-      return inquiries.length;
+      if (this.isLoggedIn) {
+        this.loadInquiries();
+        const inquiries = this.$store.getters['inquiries/inquiries'];
+        return inquiries.length;
+      }
+      return 0;
     }
   },
   methods: {
+    async loadInquiries() {
+        try {
+          await this.$store.dispatch('inquiries/fetchInquiries');
+        } catch(e) {
+          console.log('error loading inquiries');
+        }
+    },
     logout() {
       this.$store.dispatch('logout');
       this.$router.replace('/tutors');
