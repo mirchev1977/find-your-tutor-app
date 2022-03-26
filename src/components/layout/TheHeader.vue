@@ -9,7 +9,7 @@
           <router-link to="/tutors">All Tutors</router-link>
         </li>
         <li v-if="isLoggedIn">
-          <router-link to="/inquiries">Inquiries</router-link>
+          <router-link to="/inquiries">Inquiries({{ inquiriesNumber }})</router-link>
         </li>
         <li v-else>
           <router-link to="/auth">Login</router-link>
@@ -34,6 +34,10 @@ export default {
     },
     lastName() {
       return this.$store.getters.lastName;
+    },
+    inquiriesNumber() {
+      const inquiries = this.$store.getters['inquiries/inquiries'];
+      return inquiries.length;
     }
   },
   methods: {
