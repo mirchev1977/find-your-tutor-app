@@ -4,9 +4,7 @@
       <a :href="emailLink">{{ email }}</a>
     </div>
     <div v-if="fromUser">
-      <!-- <base-button mode="outline" link :to="tutorContactLink">Contact</base-button> -->
-      <!-- <a mode="outline" :href="tutorContactLink">{{ email }}</a> -->
-      <router-link :to="tutorContactLink">{{ email }}</router-link>
+      <router-link :to="tutorContactLink" target="_blank">{{ email }}</router-link>
     </div>
     <p>{{ message }}</p>
   </li>
