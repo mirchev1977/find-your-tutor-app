@@ -4,15 +4,15 @@
     <span class="text-filter">
       <input type="text" v-model="textFilter" v-on:change="setTextFilter" />
     </span>
-    <span class="filter-option">
+    <span class="filter-option frontend">
       <input type="checkbox" id="frontend" checked @change="setFilter" />
       <label for="frontend">Frontend</label>
     </span>
-    <span class="filter-option">
+    <span class="filter-option backend">
       <input type="checkbox" id="backend" checked @change="setFilter" />
       <label for="backend">Backend</label>
     </span>
-    <span class="filter-option">
+    <span class="filter-option career">
       <input type="checkbox" id="career" checked @change="setFilter" />
       <label for="career">Career</label>
     </span>
@@ -80,14 +80,14 @@ h2 {
   justify-self: center;
 }
 
-.filter-option:first-of-type {
+.filter-option.frontend {
   grid-column: 1/3;
 }
 
-.filter-option:nth-of-type(2) {
+.filter-option.backend {
   grid-column: 3/5;
 }
-.filter-option:nth-of-type(3) {
+.filter-option.career {
   grid-column: 5/7;
 }
 
