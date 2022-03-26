@@ -24,6 +24,11 @@ export default {
       formIsValid: true,
     };
   },
+  computed: {
+    userId() {
+      return this.$store.getters.userId;
+    }
+  },
   methods: {
     submitForm() {
       this.formIsValid = true;
@@ -38,7 +43,8 @@ export default {
       this.$store.dispatch('inquiries/contactTutor', {
         email: this.email,
         message: this.message,
-        tutorId: this.$route.params.id
+        tutorId: this.$route.params.id,
+        fromUserId: this.userId
       });
       this.$router.replace('/tutors');
 

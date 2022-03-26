@@ -2,7 +2,8 @@ export default {
   async contactTutor(context, payload) {
     const newInquiry = {
       userEmail: payload.email,
-      message: payload.message
+      message: payload.message,
+      fromUserId: payload.fromUserId 
     };
     const response = await fetch(
       `https://find-your-tutor-app-default-rtdb.europe-west1.firebasedatabase.app/inquiries/${payload.tutorId}.json`,
