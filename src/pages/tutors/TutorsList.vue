@@ -63,8 +63,11 @@ export default {
       return this.$store.getters['tutors/isTutor'];
     },
     filteredTutors() {
-      const tutors = this.$store.getters['tutors/tutors'];
-      let filteredTutors = tutors.filter((tutor) => {
+      let tutors = this.$store.getters['tutors/tutors'];
+      if (this.textFiltered.length > 0) {
+        tutors = this.textFiltered;
+      }
+      return tutors.filter((tutor) => {
         if (this.activeFilters.frontend && tutor.areas.includes('frontend')) {
           return true;
         }
@@ -76,12 +79,6 @@ export default {
         }
         return false;
       });
-
-      if (this.textFiltered.length > 0) {
-        filteredTutors = this.textFiltered;
-      }
-
-      return filteredTutors;
     },
     hasTutors() {
       return !this.isLoading && this.$store.getters['tutors/hasTutors'];
